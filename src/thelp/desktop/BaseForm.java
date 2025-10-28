@@ -21,6 +21,7 @@ public abstract class BaseForm extends javax.swing.JFrame {
      */
     public BaseForm(String title) 
     {
+        
         setTitle(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

@@ -97,7 +97,7 @@
         <Component class="javax.swing.JLabel" name="lblBemVindo">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2c" green="2c" red="2c" type="rgb"/>
+              <Color blue="40" green="40" red="40" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Semibold" size="24" style="0"/>
@@ -121,6 +121,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="label" type="java.lang.String" value="Entrar"/>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
@@ -141,6 +142,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Registrar"/>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
           <Events>

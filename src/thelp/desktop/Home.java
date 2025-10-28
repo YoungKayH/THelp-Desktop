@@ -10,38 +10,18 @@ import javax.swing.*;
  *
  * @author kaka2
  */
-public class Home extends javax.swing.JFrame {
+public class Home extends BaseForm {
+    
+    private Login login;
+   // private Registro registro;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Home.class.getName());
 
     public Home () {
-        initComponents();
- 
-        setTitle("THelp - Home");
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-            int width = (int) (screenSize.width * 0.9);
-            int height = (int) (screenSize.height * 0.9);
-
-            setSize(width, height);
-            setLocationRelativeTo(null);
-            /*
-            obs: Tratamento de erros de espaçamento nos Panel
-            */
-            getContentPane().setLayout(new BorderLayout());
-            pnlMainPanel.setPreferredSize(new Dimension((int)(width * 0.3), height));
-            pnlChildPanel.setPreferredSize(new Dimension((int)(width * 0.7), height));
-            getContentPane().add(pnlMainPanel, BorderLayout.WEST);
-            getContentPane().add(pnlChildPanel, BorderLayout.CENTER);
-            pnlMainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            pnlChildPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            pnlMainPanel.setBorder(null);
-            pnlChildPanel.setBorder(null);
-            
+            super("THelp - Home");
+            initComponents();
+            layoutPadrao();          
             dimensionamentoPanel();
-            
-            setVisible(true);
     }
     
 
@@ -77,7 +57,7 @@ public class Home extends javax.swing.JFrame {
 
         pnlMainPanel.setBackground(new java.awt.Color(44, 44, 44));
 
-        lblBemVindo.setBackground(new java.awt.Color(44, 44, 44));
+        lblBemVindo.setBackground(new java.awt.Color(64, 64, 64));
         lblBemVindo.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         lblBemVindo.setForeground(new java.awt.Color(255, 255, 255));
         lblBemVindo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -87,6 +67,7 @@ public class Home extends javax.swing.JFrame {
         btnEntrar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setBorderPainted(false);
+        btnEntrar.setFocusPainted(false);
         btnEntrar.setLabel("Entrar");
         btnEntrar.setName(""); // NOI18N
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +81,7 @@ public class Home extends javax.swing.JFrame {
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorderPainted(false);
+        btnRegistrar.setFocusPainted(false);
         btnRegistrar.setName(""); // NOI18N
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,16 +136,47 @@ public class Home extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         btnEntrar.setBackground(new Color (77,120,204));
         btnRegistrar.setBackground(new Color (44,44,44));
-        
-        Login log = new Login();
-        
+      
+        login();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
+    private void layoutPadrao()
+    {
+        /*
+        obs: Tratamento de erros de espaçamento nos Panel
+        */
+        int currentWidth = getWidth();
+        int currentHeight = getHeight();
+        pnlChildPanel.setLayout(new BorderLayout());
+            
+        getContentPane().setLayout(new BorderLayout());
+        pnlMainPanel.setPreferredSize(new Dimension((int)(currentWidth * 0.3), currentHeight));
+        pnlChildPanel.setPreferredSize(new Dimension((int)(currentWidth * 0.7), currentHeight));
+        getContentPane().add(pnlMainPanel, BorderLayout.WEST);
+        getContentPane().add(pnlChildPanel, BorderLayout.CENTER);
+        pnlMainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        pnlChildPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        pnlMainPanel.setBorder(null);
+        pnlChildPanel.setBorder(null);
+    }
+    
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         btnRegistrar.setBackground(new Color (77,120,204));
         btnEntrar.setBackground(new Color (44,44,44));
     }//GEN-LAST:event_btnRegistrarActionPerformed
     
+    private void login()
+    {
+        if(login == null) 
+        {
+            login = new Login();
+        }
+        pnlChildPanel.removeAll();
+        pnlChildPanel.setLayout(new BorderLayout());
+        pnlChildPanel.add(login, BorderLayout.CENTER);
+        pnlChildPanel.revalidate();
+        pnlChildPanel.repaint();
+    }
     private void dimensionamentoPanel() 
     {    
         int mainPanelWidth = (int) (getContentPane().getWidth() * 0.3);
@@ -173,7 +186,15 @@ public class Home extends javax.swing.JFrame {
         int childPanelWidth = getContentPane().getWidth() - mainPanelWidth - 6;
         pnlChildPanel.setSize(new Dimension(childPanelWidth, getContentPane().getHeight()));
         pnlChildPanel.setPreferredSize(new Dimension(childPanelWidth, getContentPane().getHeight()));
-    
+        
+        if(login != null && login.getParent() == pnlChildPanel)
+        {
+            login.setSize(pnlChildPanel.getSize());
+            login.setPreferredSize(pnlChildPanel.getSize());
+            login.revalidate();
+            login.repaint();
+        }
+        
         getContentPane().revalidate();
         getContentPane().repaint();
     }
