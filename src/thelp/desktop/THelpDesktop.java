@@ -11,7 +11,8 @@ package thelp.desktop;
 public class THelpDesktop {
   
     public static void main(String[] args) {
-        Home home = new Home();
+        HomeLogin log = new HomeLogin();
+        log.setVisible(true);
     }
     
 }

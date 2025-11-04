@@ -4,16 +4,27 @@
  */
 package thelp.desktop;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JFrame;
 
 /**
  *
  * @author kaka2
  */
-public abstract class BaseForm extends javax.swing.JFrame {
-    
+public abstract class BaseForm extends javax.swing.JFrame 
+
+{
+    private static final int BASE_WIDTH = 1366;
+    private static final int BASE_HEIGHT = 768;
+
+    private double scaleX;
+    private double scaleY;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BaseForm.class.getName());
 
     /**
@@ -25,13 +36,58 @@ public abstract class BaseForm extends javax.swing.JFrame {
         setTitle(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.width * 0.9);
-        int height = (int) (screenSize.height * 0.9);
-        setSize(width, height);
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        scaleX = (double) screenWidth / BASE_WIDTH;
+        scaleY = (double) screenHeight / BASE_HEIGHT;
+        
+        int frameWidth = (int) (BASE_WIDTH * scaleX * 0.9);
+        int frameHeight = (int) (BASE_HEIGHT * scaleY * 0.9);
+        setSize(frameWidth, frameHeight);
         setLocationRelativeTo(null);
-        setVisible(true);
-    }
+        //setVisible(true);
+        
+        addComponentListener(new ComponentAdapter() 
+        {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                ajustarComponentes(getContentPane());
+            }
+            @Override
+            public void componentResized(ComponentEvent e) 
+                {
+                ajustarComponentes(getContentPane());
+            }  
+            });
+  }
+    
+    private void ajustarComponentes(Container container) {
+        for (Component c : container.getComponents()) {
 
+            // Ajusta o tamanho preferido proporcionalmente à tela
+            Dimension preferred = c.getPreferredSize();
+            if (preferred != null) {
+                int newWidth = (int) (preferred.width * scaleX);
+                int newHeight = (int) (preferred.height * scaleY);
+                c.setPreferredSize(new Dimension(newWidth, newHeight));
+            }
+
+            // Ajusta fonte proporcionalmente (opcional, mas deixa visual uniforme)
+            Font f = c.getFont();
+            if (f != null) {
+                float newSize = (float) (f.getSize2D() * Math.min(scaleX, scaleY));
+                c.setFont(f.deriveFont(newSize));
+            }
+
+            if (c instanceof Container) {
+                ajustarComponentes((Container) c);
+            }
+        }
+
+        container.revalidate();
+        container.repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
