@@ -66,6 +66,7 @@ public class HomeLogin extends javax.swing.JFrame {
 
         btnRegistrar.setBackground(new java.awt.Color(153, 153, 153));
         btnRegistrar.setText("Registrar");
+        btnRegistrar.setFocusPainted(false);
 
         lblThelp.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         lblThelp.setForeground(new java.awt.Color(204, 102, 0));

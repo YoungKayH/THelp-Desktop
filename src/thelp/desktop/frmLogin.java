@@ -58,8 +58,10 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel2.setText("Senha");
 
         jCheckBox1.setText("Lembrar senha");
+        jCheckBox1.setFocusPainted(false);
 
         btnEntrar.setText("Entrar");
+        btnEntrar.setFocusPainted(false);
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
@@ -69,6 +71,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel3.setText("Esqueceu a senha?");
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setFocusPainted(false);
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
