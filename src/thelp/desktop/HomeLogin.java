@@ -48,9 +48,9 @@ public class HomeLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 400));
 
-        jDesktopPane1.setBackground(new java.awt.Color(30, 30, 30));
+        jDesktopPane1.setBackground(new java.awt.Color(15, 23, 42));
 
-        btnEntrar.setBackground(new java.awt.Color(204, 102, 0));
+        btnEntrar.setBackground(new java.awt.Color(74, 144, 226));
         btnEntrar.setText("Entrar");
         btnEntrar.setFocusPainted(false);
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +69,7 @@ public class HomeLogin extends javax.swing.JFrame {
         btnRegistrar.setFocusPainted(false);
 
         lblThelp.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
-        lblThelp.setForeground(new java.awt.Color(204, 102, 0));
+        lblThelp.setForeground(new java.awt.Color(74, 144, 226));
         lblThelp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblThelp.setText("THelp");
 

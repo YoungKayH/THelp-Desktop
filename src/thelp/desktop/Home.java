@@ -35,7 +35,7 @@ public class Home extends javax.swing.JFrame {
         pnlLado = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnDashboard = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         btnAbrirChamados = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         btnCriarChamados = new javax.swing.JButton();
@@ -73,12 +73,12 @@ public class Home extends javax.swing.JFrame {
 
         pnlLado.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 270, -1));
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("THelp");
-        pnlLado.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, -1));
+        lblLogo.setBackground(new java.awt.Color(255, 255, 255));
+        lblLogo.setFont(new java.awt.Font("Segoe UI Semibold", 0, 36)); // NOI18N
+        lblLogo.setForeground(new java.awt.Color(74, 144, 226));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setText("THelp");
+        pnlLado.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, -1));
 
         btnAbrirChamados.setText("Abrir chamados");
         btnAbrirChamados.setFocusPainted(false);
@@ -184,8 +184,8 @@ public class Home extends javax.swing.JFrame {
         pnlMain.add(pnlFilho, BorderLayout.CENTER);
     }
    private void setupHeader() {
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pnlLado.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, -1));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pnlLado.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, -1));
     }
    
    private void setupSeparator() {
@@ -240,9 +240,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnCriarChamados;
     private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnSair;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel pnlFilho;
     private javax.swing.JPanel pnlLado;
     private javax.swing.JPanel pnlMain;
