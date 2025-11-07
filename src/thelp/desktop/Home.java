@@ -139,7 +139,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
-       Dashboard dash = new Dashboard();
+      Dashboard dash = new Dashboard();
        setTela(dash);
     }//GEN-LAST:event_btnDashboardActionPerformed
 

@@ -31,9 +31,27 @@ public class Dashboard extends javax.swing.JPanel {
    public Dashboard() {
         //setTitle("THelp - Desktop");
         createDashboard();
-        //initComponents();
+        initComponents();
+        configurarLayout();
         
     }
+   private void configurarLayout() {
+
+    // === PAINEL DOS CARDS ===
+    jPanel1.setLayout(new java.awt.GridLayout(1, 3, 20, 0));
+
+    // === PAINEL DO CENTRO (GRÁFICO + TABELA) ===
+    pnlCenter.setLayout(new java.awt.BorderLayout(20, 0));
+
+    // parte esquerda (gráfico) cresce AUTOMATICAMENTE
+    pnlCenter.add(pnlGrafico, java.awt.BorderLayout.CENTER);
+
+    // parte direita (tabela) fica com largura fixa
+    pnlTabela.setPreferredSize(new java.awt.Dimension(330, 0));
+    pnlCenter.add(pnlTabela, java.awt.BorderLayout.EAST);
+
+}
+   
      private static class Card extends JPanel {
         private final Color color;
 
@@ -226,213 +244,168 @@ public class Dashboard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlChamadosAbertos = new javax.swing.JPanel();
-        lblValor = new javax.swing.JLabel();
+        pnlMain = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        pnlSla = new javax.swing.JPanel();
-        lblValor1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        pnlCardAbertos = new javax.swing.JPanel();
         lblTitulo1 = new javax.swing.JLabel();
-        pnlResolvidos = new javax.swing.JPanel();
-        lblValor2 = new javax.swing.JLabel();
+        lblValor1 = new javax.swing.JLabel();
+        pnlCardFechados = new javax.swing.JPanel();
         lblTitulo2 = new javax.swing.JLabel();
-        pnlPendentes = new javax.swing.JPanel();
-        lblValor3 = new javax.swing.JLabel();
+        lblValor2 = new javax.swing.JLabel();
+        pnlCardPendentes = new javax.swing.JPanel();
         lblTitulo3 = new javax.swing.JLabel();
-        pnlChamadosMes = new javax.swing.JPanel();
-        pnlDepartamento = new javax.swing.JPanel();
-        lblTituloDashboard = new javax.swing.JLabel();
+        lblValor3 = new javax.swing.JLabel();
+        pnlChart = new javax.swing.JPanel();
+        lblChartgrafico = new javax.swing.JLabel();
+        pnlTabela = new javax.swing.JPanel();
+        lblTitulorecente = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblChamados = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(15, 23, 42));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblValor.setText("jLabel1");
+        pnlMain.setBackground(new java.awt.Color(245, 245, 245));
+        pnlMain.setPreferredSize(new java.awt.Dimension(280, 280));
+        pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setText("jLabel1");
+        lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
+        lblTitulo.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        lblTitulo.setText("Dashboard");
+        pnlMain.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        javax.swing.GroupLayout pnlChamadosAbertosLayout = new javax.swing.GroupLayout(pnlChamadosAbertos);
-        pnlChamadosAbertos.setLayout(pnlChamadosAbertosLayout);
-        pnlChamadosAbertosLayout.setHorizontalGroup(
-            pnlChamadosAbertosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlChamadosAbertosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlChamadosAbertosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblValor)
-                    .addComponent(lblTitulo))
-                .addContainerGap(78, Short.MAX_VALUE))
+        jSeparator1.setBackground(new java.awt.Color(221, 221, 221));
+        pnlMain.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 900, 2));
+
+        pnlCardAbertos.setBackground(new java.awt.Color(255, 255, 255));
+        pnlCardAbertos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
+        pnlCardAbertos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTitulo1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lblTitulo1.setText("Chamados abertos");
+        pnlCardAbertos.add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+
+        lblValor1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 28)); // NOI18N
+        lblValor1.setForeground(new java.awt.Color(74, 144, 226));
+        lblValor1.setText("12");
+        pnlCardAbertos.add(lblValor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 40, -1, -1));
+
+        pnlMain.add(pnlCardAbertos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 120));
+
+        pnlCardFechados.setBackground(new java.awt.Color(255, 255, 255));
+        pnlCardFechados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
+        pnlCardFechados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTitulo2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lblTitulo2.setText("Chamados Fechados");
+        pnlCardFechados.add(lblTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+
+        lblValor2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 28)); // NOI18N
+        lblValor2.setForeground(new java.awt.Color(74, 144, 226));
+        lblValor2.setText("12");
+        pnlCardFechados.add(lblValor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 40, -1, -1));
+
+        pnlMain.add(pnlCardFechados, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 200, 120));
+
+        pnlCardPendentes.setBackground(new java.awt.Color(255, 255, 255));
+        pnlCardPendentes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
+        pnlCardPendentes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTitulo3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lblTitulo3.setText("Chamados Pendentes");
+        pnlCardPendentes.add(lblTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+
+        lblValor3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 28)); // NOI18N
+        lblValor3.setForeground(new java.awt.Color(74, 144, 226));
+        lblValor3.setText("12");
+        pnlCardPendentes.add(lblValor3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 40, -1, -1));
+
+        pnlMain.add(pnlCardPendentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 200, 120));
+
+        pnlChart.setBackground(new java.awt.Color(255, 255, 255));
+        pnlChart.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
+
+        lblChartgrafico.setBackground(new java.awt.Color(153, 153, 153));
+        lblChartgrafico.setText("Gráfico aparecerá aqui");
+
+        javax.swing.GroupLayout pnlChartLayout = new javax.swing.GroupLayout(pnlChart);
+        pnlChart.setLayout(pnlChartLayout);
+        pnlChartLayout.setHorizontalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlChartLayout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(lblChartgrafico)
+                .addContainerGap(227, Short.MAX_VALUE))
         );
-        pnlChamadosAbertosLayout.setVerticalGroup(
-            pnlChamadosAbertosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlChamadosAbertosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblValor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTitulo)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-
-        lblValor1.setText("jLabel1");
-
-        lblTitulo1.setText("jLabel2");
-
-        javax.swing.GroupLayout pnlSlaLayout = new javax.swing.GroupLayout(pnlSla);
-        pnlSla.setLayout(pnlSlaLayout);
-        pnlSlaLayout.setHorizontalGroup(
-            pnlSlaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSlaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlSlaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblValor1)
-                    .addComponent(lblTitulo1))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-        pnlSlaLayout.setVerticalGroup(
-            pnlSlaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSlaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblValor1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTitulo1)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-
-        lblValor2.setText("jLabel1");
-
-        lblTitulo2.setText("jLabel2");
-
-        javax.swing.GroupLayout pnlResolvidosLayout = new javax.swing.GroupLayout(pnlResolvidos);
-        pnlResolvidos.setLayout(pnlResolvidosLayout);
-        pnlResolvidosLayout.setHorizontalGroup(
-            pnlResolvidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlResolvidosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlResolvidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblValor2)
-                    .addComponent(lblTitulo2))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-        pnlResolvidosLayout.setVerticalGroup(
-            pnlResolvidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlResolvidosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblValor2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTitulo2)
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-
-        lblValor3.setText("jLabel1");
-
-        lblTitulo3.setText("jLabel2");
-
-        javax.swing.GroupLayout pnlPendentesLayout = new javax.swing.GroupLayout(pnlPendentes);
-        pnlPendentes.setLayout(pnlPendentesLayout);
-        pnlPendentesLayout.setHorizontalGroup(
-            pnlPendentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPendentesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlPendentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPendentesLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblTitulo3))
-                    .addComponent(lblValor3))
-                .addContainerGap(52, Short.MAX_VALUE))
-        );
-        pnlPendentesLayout.setVerticalGroup(
-            pnlPendentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPendentesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblValor3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTitulo3)
-                .addContainerGap(56, Short.MAX_VALUE))
+        pnlChartLayout.setVerticalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChartLayout.createSequentialGroup()
+                .addContainerGap(147, Short.MAX_VALUE)
+                .addComponent(lblChartgrafico)
+                .addGap(135, 135, 135))
         );
 
-        javax.swing.GroupLayout pnlChamadosMesLayout = new javax.swing.GroupLayout(pnlChamadosMes);
-        pnlChamadosMes.setLayout(pnlChamadosMesLayout);
-        pnlChamadosMesLayout.setHorizontalGroup(
-            pnlChamadosMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        pnlChamadosMesLayout.setVerticalGroup(
-            pnlChamadosMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        pnlMain.add(pnlChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 550, 300));
 
-        javax.swing.GroupLayout pnlDepartamentoLayout = new javax.swing.GroupLayout(pnlDepartamento);
-        pnlDepartamento.setLayout(pnlDepartamentoLayout);
-        pnlDepartamentoLayout.setHorizontalGroup(
-            pnlDepartamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        pnlDepartamentoLayout.setVerticalGroup(
-            pnlDepartamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        pnlTabela.setBackground(new java.awt.Color(255, 255, 255));
+        pnlTabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
+        pnlTabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTituloDashboard.setText("jLabel1");
+        lblTitulorecente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblTitulorecente.setText("jLabel1");
+        pnlTabela.add(lblTitulorecente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlChamadosAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(pnlSla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlResolvidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlPendentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137)
-                        .addComponent(pnlChamadosMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 191, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(lblTituloDashboard)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlChamadosAbertos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlResolvidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pnlSla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(pnlPendentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(lblTituloDashboard)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlChamadosMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
+        jScrollPane1.setColumnHeaderView(null);
+        jScrollPane1.setName(""); // NOI18N
+
+        tblChamados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Titulo", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblChamados);
+
+        pnlTabela.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 330, 240));
+
+        pnlMain.add(pnlTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 350, 300));
+
+        add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 580));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblChartgrafico;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTitulo1;
     private javax.swing.JLabel lblTitulo2;
     private javax.swing.JLabel lblTitulo3;
-    private javax.swing.JLabel lblTituloDashboard;
-    private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lblTitulorecente;
     private javax.swing.JLabel lblValor1;
     private javax.swing.JLabel lblValor2;
     private javax.swing.JLabel lblValor3;
-    private javax.swing.JPanel pnlChamadosAbertos;
-    private javax.swing.JPanel pnlChamadosMes;
-    private javax.swing.JPanel pnlDepartamento;
-    private javax.swing.JPanel pnlPendentes;
-    private javax.swing.JPanel pnlResolvidos;
-    private javax.swing.JPanel pnlSla;
+    private javax.swing.JPanel pnlCardAbertos;
+    private javax.swing.JPanel pnlCardFechados;
+    private javax.swing.JPanel pnlCardPendentes;
+    private javax.swing.JPanel pnlChart;
+    private javax.swing.JPanel pnlMain;
+    private javax.swing.JPanel pnlTabela;
+    private javax.swing.JTable tblChamados;
     // End of variables declaration//GEN-END:variables
 }
