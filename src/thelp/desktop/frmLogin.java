@@ -19,6 +19,7 @@ public class frmLogin extends javax.swing.JFrame {
      */
     public frmLogin() {
         initComponents();
+        setTitle("THelp - Desktop");
         setLocationRelativeTo(null);
         
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

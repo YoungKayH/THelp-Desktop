@@ -15,6 +15,7 @@ public class CriarChamado extends javax.swing.JPanel {
      */
     public CriarChamado() {
         initComponents();
+        
     }
 
     /**
@@ -26,30 +27,124 @@ public class CriarChamado extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        pnlMain = new javax.swing.JPanel();
+        lblTituloChamado = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        pnlForm = new javax.swing.JPanel();
+        lblTitulodoChamado = new javax.swing.JLabel();
+        txtTituloChamado = new javax.swing.JTextField();
+        lblCategoria = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        lblPrioridade = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        lblDescricao = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescricao = new javax.swing.JTextArea();
+        lblAnexo = new javax.swing.JLabel();
+        btnSelectArquivo = new javax.swing.JButton();
+        lblArquvioSelecionado = new javax.swing.JLabel();
+        btnCriarchamado = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
+        pnlMain.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMain.setForeground(new java.awt.Color(255, 255, 255));
+        pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTituloChamado.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        lblTituloChamado.setForeground(new java.awt.Color(51, 51, 51));
+        lblTituloChamado.setText("Criar chamado");
+        pnlMain.add(lblTituloChamado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jSeparator1.setBackground(new java.awt.Color(221, 221, 221));
+        pnlMain.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 900, 2));
+
+        pnlForm.setBackground(new java.awt.Color(255, 255, 255));
+        pnlForm.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
+        pnlForm.setPreferredSize(new java.awt.Dimension(900, 650));
+        pnlForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTitulodoChamado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTitulodoChamado.setText("Titulo do chamado");
+        pnlForm.add(lblTitulodoChamado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        pnlForm.add(txtTituloChamado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 45, 300, 30));
+
+        lblCategoria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCategoria.setText("Categoria");
+        pnlForm.add(lblCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suporte Tecnico", "Rede", "Sistema", "Infraestrutura", "Segurança" }));
+        pnlForm.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 45, 250, 30));
+
+        lblPrioridade.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPrioridade.setText("Prioridade");
+        pnlForm.add(lblPrioridade, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, -1, -1));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baixa", "Média", "Alta", "Urgente" }));
+        pnlForm.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 45, 250, 30));
+
+        lblDescricao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDescricao.setText("Descrição do Problema");
+        pnlForm.add(lblDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setLineWrap(true);
+        txtDescricao.setRows(5);
+        txtDescricao.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(txtDescricao);
+
+        pnlForm.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 860, 180));
+
+        lblAnexo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblAnexo.setText("Anexo (opcional)");
+        pnlForm.add(lblAnexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 325, -1, -1));
+
+        btnSelectArquivo.setText("Selecionar arquivo");
+        pnlForm.add(btnSelectArquivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 200, 30));
+
+        lblArquvioSelecionado.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblArquvioSelecionado.setForeground(new java.awt.Color(119, 119, 119));
+        lblArquvioSelecionado.setText("Nenhum arquivo selecionado");
+        pnlForm.add(lblArquvioSelecionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 355, -1, -1));
+
+        btnCriarchamado.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnCriarchamado.setText("Criar chamado");
+        pnlForm.add(btnCriarchamado, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 500, 200, 40));
+
+        pnlMain.add(pnlForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 930, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(181, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(144, 144, 144))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jButton1)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCriarchamado;
+    private javax.swing.JButton btnSelectArquivo;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblAnexo;
+    private javax.swing.JLabel lblArquvioSelecionado;
+    private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblPrioridade;
+    private javax.swing.JLabel lblTituloChamado;
+    private javax.swing.JLabel lblTitulodoChamado;
+    private javax.swing.JPanel pnlForm;
+    private javax.swing.JPanel pnlMain;
+    private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JTextField txtTituloChamado;
     // End of variables declaration//GEN-END:variables
 }

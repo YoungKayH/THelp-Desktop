@@ -22,6 +22,7 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setupLayout();
+        setTitle("THelp - Desktop");
         //setSize(new Dimension(getParent().getWidth(), getParent().getHeight()));
         
         setTela(new Dashboard());
