@@ -4,6 +4,13 @@
  */
 package thelp.desktop;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import thelp.desktop.Database.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JLabel;
 /**
  *
  * @author kaka2
@@ -15,6 +22,8 @@ public class AbrirChamados extends javax.swing.JPanel {
      */
     public AbrirChamados() {
         initComponents();
+       // carregarChamadosFake();
+        carregarChamados();
     }
 
     /**
@@ -30,8 +39,6 @@ public class AbrirChamados extends javax.swing.JPanel {
         lblTitulochamados = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         pnlList = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblChamados = new javax.swing.JTable();
 
         pnlMain.setBackground(new java.awt.Color(245, 245, 245));
         pnlMain.setForeground(new java.awt.Color(89, 92, 94));
@@ -45,62 +52,7 @@ public class AbrirChamados extends javax.swing.JPanel {
 
         pnlList.setBackground(new java.awt.Color(245, 245, 245));
         pnlList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
-        pnlList.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tblChamados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
-        tblChamados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Cliente", "Titulo", "Categoria", "Prioridade", "Status", "Ação"
-            }
-        ));
-        tblChamados.setSelectionBackground(new java.awt.Color(44, 95, 187));
-        tblChamados.setSelectionForeground(new java.awt.Color(245, 245, 245));
-        jScrollPane1.setViewportView(tblChamados);
-
-        pnlList.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 400));
-
+        pnlList.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 15));
         pnlMain.add(pnlList, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 900, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -118,14 +70,75 @@ public class AbrirChamados extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    private void carregarChamados() 
+    {
+        pnlList.removeAll();
+        int y = 10;
 
+        String sql = "SELECT id_chamado, cha_titulo, cha_prioridade, cha_status FROM chamado ORDER BY id_chamado DESC";
 
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) 
+            {
+                int id = rs.getInt("id_chamado");
+                String titulo = rs.getString("cha_titulo");
+                String prioridade = rs.getString("cha_prioridade");
+                String status = rs.getString("cha_status");
+
+                frmCartaoChamado cartao = new frmCartaoChamado(id, titulo, prioridade, status);
+
+                // ação do botão
+            cartao.setOnAbrirChamadoListener(() -> 
+            {
+                abrirChat(id);
+            });
+
+            cartao.setBounds(10, y, 850, 90);
+            y += 100;
+
+            pnlList.add(cartao);
+        }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        pnlList.setPreferredSize(new Dimension(880, y + 20));
+        pnlList.repaint();
+        pnlList.revalidate();
+    }
+    private void abrirChat(int idChamado) 
+    {
+        pnlList.removeAll(); // limpar a lista
+        pnlList.setLayout(new java.awt.BorderLayout());
+
+        frmChat chat = new frmChat();
+        pnlList.add(chat, BorderLayout.CENTER);
+
+        pnlList.revalidate();
+        pnlList.repaint();
+    }
+
+    public void carregarChamadosFake() {
+
+    pnlList.removeAll(); // seu painel onde estão os cartões
+
+    pnlList.add(new frmCartaoChamado(1, "Erro ao fazer login", "alta", "aberto"));
+    pnlList.add(new frmCartaoChamado(2, "Sistema lento", "media", "em_andamento"));
+    pnlList.add(new frmCartaoChamado(3, "Problema na impressora", "baixa", "fechado"));
+    pnlList.add(new frmCartaoChamado(4, "Não consigo acessar o e-mail", "alta", "aberto"));
+
+    pnlList.revalidate();
+    pnlList.repaint();
+}
+      
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTitulochamados;
     private javax.swing.JPanel pnlList;
     private javax.swing.JPanel pnlMain;
-    private javax.swing.JTable tblChamados;
     // End of variables declaration//GEN-END:variables
 }

@@ -67,9 +67,9 @@ public class Dashboard extends javax.swing.JPanel {
 
         while (rs.next()) {
             model.addRow(new Object[]{
-                rs.getInt("id"),
-                rs.getString("titulo"),
-                rs.getString("status")
+                rs.getInt("id_chamado"),
+                rs.getString("cha_titulo"),
+                rs.getString("cha_status")
             });
         }
 
@@ -224,7 +224,7 @@ public class Dashboard extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

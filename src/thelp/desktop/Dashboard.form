@@ -339,7 +339,7 @@
                       <Table columnCount="3" rowCount="4">
                         <Column editable="true" title="ID" type="java.lang.Integer"/>
                         <Column editable="true" title="Titulo" type="java.lang.String"/>
-                        <Column editable="true" title="Status" type="java.lang.Boolean"/>
+                        <Column editable="true" title="Status" type="java.lang.String"/>
                       </Table>
                     </Property>
                   </Properties>
