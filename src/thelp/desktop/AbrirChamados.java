@@ -22,8 +22,9 @@ public class AbrirChamados extends javax.swing.JPanel {
      */
     public AbrirChamados() {
         initComponents();
-       // carregarChamadosFake();
+       // carregarChamadosTest();
         carregarChamados();
+        cbFiltro.addActionListener(e -> carregarChamados());
     }
 
     /**
@@ -39,6 +40,7 @@ public class AbrirChamados extends javax.swing.JPanel {
         lblTitulochamados = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         pnlList = new javax.swing.JPanel();
+        cbFiltro = new javax.swing.JComboBox<>();
 
         pnlMain.setBackground(new java.awt.Color(245, 245, 245));
         pnlMain.setForeground(new java.awt.Color(89, 92, 94));
@@ -54,6 +56,9 @@ public class AbrirChamados extends javax.swing.JPanel {
         pnlList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(200, 200, 200), 1, true));
         pnlList.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 15));
         pnlMain.add(pnlList, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 900, 400));
+
+        cbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Aberto", "Fechado", "Em_andamento" }));
+        pnlMain.add(cbFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 200, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,12 +79,24 @@ public class AbrirChamados extends javax.swing.JPanel {
     {
         pnlList.removeAll();
         int y = 10;
+        
+       String filtro = cbFiltro.getSelectedItem().toString();
+       String sql = "SELECT id_chamado, cha_titulo, cha_prioridade, cha_status FROM chamado";
+        
+        if (!filtro.equals("Todos")) {
+            sql += " WHERE cha_status = ?";
+        }
 
-        String sql = "SELECT id_chamado, cha_titulo, cha_prioridade, cha_status FROM chamado ORDER BY id_chamado DESC";
+        sql += " ORDER BY id_chamado DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            if (!filtro.equals("Todos")) {
+                ps.setString(1, filtro.toLowerCase()); 
+            }
+
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) 
             {
@@ -90,17 +107,13 @@ public class AbrirChamados extends javax.swing.JPanel {
 
                 frmCartaoChamado cartao = new frmCartaoChamado(id, titulo, prioridade, status);
 
-                // ação do botão
-            cartao.setOnAbrirChamadoListener(() -> 
-            {
-                abrirChat(id);
-            });
+                cartao.setOnAbrirChamadoListener(() -> abrirChat(id));
 
-            cartao.setBounds(10, y, 850, 90);
-            y += 100;
+                cartao.setBounds(10, y, 850, 90);
+                y += 100;
 
-            pnlList.add(cartao);
-        }
+                pnlList.add(cartao);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +135,7 @@ public class AbrirChamados extends javax.swing.JPanel {
         pnlList.repaint();
     }
 
-    public void carregarChamadosFake() {
+   /* public void carregarChamadosTest) {
 
     pnlList.removeAll(); // seu painel onde estão os cartões
 
@@ -133,9 +146,10 @@ public class AbrirChamados extends javax.swing.JPanel {
 
     pnlList.revalidate();
     pnlList.repaint();
-}
+    }*/
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbFiltro;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTitulochamados;
     private javax.swing.JPanel pnlList;
