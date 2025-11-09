@@ -4,11 +4,21 @@
  */
 package thelp.desktop;
 
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import thelp.desktop.Database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 
 /**
@@ -29,9 +39,9 @@ public class Dashboard extends javax.swing.JPanel {
      * Creates new form Dashboard
      */
    public Dashboard() {
-        //setTitle("THelp - Desktop");
         //createDashboard();
         initComponents();
+        carregarGrafico();
         carregarDadosDashboard();
         
     }
@@ -77,16 +87,83 @@ public class Dashboard extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-   private void carregarDadosDashboard() {
+   private void carregarDadosDashboard() 
+   {
 
-    // Atualiza Cards
-    lblValor1.setText(String.valueOf(contarChamados("aberto")));
-    lblValor2.setText(String.valueOf(contarChamados("fechado")));
-    lblValor3.setText(String.valueOf(contarChamados("em_andamento")));
+        // Atualiza Cards
+        lblValor1.setText(String.valueOf(contarChamados("aberto")));
+        lblValor2.setText(String.valueOf(contarChamados("fechado")));
+            lblValor3.setText(String.valueOf(contarChamados("em_andamento")));
 
-    // Atualiza tabela
-    carregarChamadosRecentes();
+        // Atualiza tabela
+        carregarChamadosRecentes();
+    }
+   private void carregarGrafico() 
+{
+    try {
+        int abertos = contarChamados("aberto");
+        int fechados = contarChamados("fechado");
+        int pendentes = contarChamados("em_andamento");
+
+        // Criar dataset com 3 séries separadas
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        dataset.addValue(abertos, "Abertos", "Abertos");
+        dataset.addValue(fechados, "Fechados", "Fechados");
+        dataset.addValue(pendentes, "Pendentes", "Pendentes");
+
+        // Criar o gráfico
+        JFreeChart lineChart = ChartFactory.createLineChart(
+                "Status dos Chamados",
+                "Categoria",
+                "Quantidade",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,   // legenda ativada
+                true,
+                false
+        );
+
+        // Plot
+        CategoryPlot plot = lineChart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setRangeGridlinePaint(Color.LIGHT_GRAY);
+
+        // Renderer (3 linhas diferentes)
+        LineAndShapeRenderer renderer = new LineAndShapeRenderer();
+
+        // Cores das séries
+        renderer.setSeriesPaint(0, new Color(231, 76, 60));   // Vermelho - Abertos
+        renderer.setSeriesPaint(1, new Color(41, 128, 185));  // Azul - Fechados
+        renderer.setSeriesPaint(2, new Color(243, 156, 18));  // Amarelo - Pendentes
+
+        // Marcadores visíveis
+        renderer.setSeriesShapesVisible(0, true);
+        renderer.setSeriesShapesVisible(1, true);
+        renderer.setSeriesShapesVisible(2, true);
+
+        // Espessura das linhas
+        renderer.setSeriesStroke(0, new BasicStroke(2.5f));
+        renderer.setSeriesStroke(1, new BasicStroke(2.5f));
+        renderer.setSeriesStroke(2, new BasicStroke(2.5f));
+
+        plot.setRenderer(renderer);
+
+        // Adicionar gráfico ao painel
+        ChartPanel chartPanel = new ChartPanel(lineChart);
+        chartPanel.setPreferredSize(pnlChart.getSize());
+
+        pnlChart.removeAll();
+        pnlChart.setLayout(new BorderLayout());
+        pnlChart.add(chartPanel, BorderLayout.CENTER);
+        pnlChart.revalidate();
+        pnlChart.repaint();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -226,9 +303,16 @@ public class Dashboard extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblChamados);
