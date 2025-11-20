@@ -9,10 +9,6 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- *
- * @author kaka2
- */
 public class Home extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Home.class.getName());
@@ -45,8 +41,9 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(1300, 750));
 
-        pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlMain.setLayout(new java.awt.BorderLayout());
 
         pnlLado.setBackground(new java.awt.Color(54, 33, 89));
         pnlLado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -112,11 +109,11 @@ public class Home extends javax.swing.JFrame {
         jSeparator1.setFocusTraversalPolicyProvider(true);
         pnlLado.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 270, -1));
 
-        pnlMain.add(pnlLado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 540));
+        pnlMain.add(pnlLado, java.awt.BorderLayout.WEST);
 
         pnlFilho.setBackground(new java.awt.Color(110, 89, 222));
         pnlFilho.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnlMain.add(pnlFilho, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 62, 700, 480));
+        pnlMain.add(pnlFilho, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,9 +208,6 @@ public class Home extends javax.swing.JFrame {
         pnlLado.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 270, -1));
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -4,10 +4,6 @@
  */
 package thelp.desktop;
 
-/**
- *
- * @author kaka2
- */
 public class THelpDesktop {
   
     public static void main(String[] args) {

@@ -7,17 +7,10 @@ package thelp.desktop;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-/**
- *
- * @author kaka2
- */
 public class HomeLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Home.class.getName());
 
-    /**
-     * Creates new form Home
-     */
     public HomeLogin() {
         setTitle("THelp - Desktop");
         initComponents();

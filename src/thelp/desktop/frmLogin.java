@@ -6,19 +6,13 @@ package thelp.desktop;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author kaka2
- */
 public class frmLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmLogin.class.getName());
 
-    /**
-     * Creates new form frmLogin
-     */
     public frmLogin() {
         initComponents();
+        setAutoRequestFocus(true);
         setTitle("THelp - Desktop");
         setLocationRelativeTo(null);
         
@@ -55,22 +49,32 @@ public class frmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
 
+        jPanel1.setBackground(new java.awt.Color(15, 23, 42));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(245, 245, 245));
         jLabel1.setText("Email");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 232, -1));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 270, -1));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(245, 245, 245));
         jLabel2.setText("Senha");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 232, -1));
-        jPanel1.add(pwdSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 232, -1));
+        jPanel1.add(pwdSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, -1));
 
+        cbLembrarSenha.setBackground(new java.awt.Color(15, 23, 42));
+        cbLembrarSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbLembrarSenha.setForeground(new java.awt.Color(245, 245, 245));
         cbLembrarSenha.setText("Lembrar senha");
         cbLembrarSenha.setFocusPainted(false);
-        jPanel1.add(cbLembrarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jPanel1.add(cbLembrarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(245, 245, 245));
         jLabel3.setText("Esqueceu a senha?");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, -1, 20));
 
         btnEntrar.setText("Entrar");
         btnEntrar.setFocusPainted(false);
@@ -79,7 +83,7 @@ public class frmLogin extends javax.swing.JFrame {
                 btnEntrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
+        jPanel1.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
 
         btnVoltar.setText("Voltar");
         btnVoltar.setFocusPainted(false);
@@ -94,7 +98,7 @@ public class frmLogin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

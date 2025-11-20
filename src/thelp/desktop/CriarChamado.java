@@ -45,8 +45,14 @@ public class CriarChamado extends javax.swing.JPanel {
         lblArquvioSelecionado = new javax.swing.JLabel();
         btnCriarchamado = new javax.swing.JButton();
 
+        setMaximumSize(null);
+        setPreferredSize(null);
+
         pnlMain.setBackground(new java.awt.Color(255, 255, 255));
         pnlMain.setForeground(new java.awt.Color(255, 255, 255));
+        pnlMain.setMaximumSize(null);
+        pnlMain.setMinimumSize(null);
+        pnlMain.setPreferredSize(null);
         pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTituloChamado.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N

@@ -7,10 +7,12 @@ package thelp.desktop;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import thelp.desktop.Database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -41,6 +43,9 @@ public class Dashboard extends javax.swing.JPanel {
    public Dashboard() {
         //createDashboard();
         initComponents();
+        
+        LayoutOrg();
+        
         carregarGrafico();
         carregarDadosDashboard();
         
@@ -163,7 +168,37 @@ public class Dashboard extends javax.swing.JPanel {
         e.printStackTrace();
     }
 }
+   private void LayoutOrg() 
+   {
 
+        pnlMain.removeAll();
+        pnlMain.setLayout(new BorderLayout());
+
+        // Painel do topo (título + linha + cards)
+        JPanel topo = new JPanel(new BorderLayout());
+
+        JPanel header = new JPanel();
+        header.setLayout(new BorderLayout());
+        header.add(lblTitulo, BorderLayout.NORTH);
+        header.add(jSeparator1, BorderLayout.SOUTH);
+
+        JPanel cards = new JPanel();
+        cards.setLayout(new java.awt.FlowLayout(FlowLayout.LEFT, 20, 10));
+        cards.add(pnlCardAbertos);
+        cards.add(pnlCardFechados);
+        cards.add(pnlCardPendentes);
+
+        topo.add(header, BorderLayout.NORTH);
+        topo.add(cards, BorderLayout.CENTER);
+
+        // Adiciona ao pnlMain
+        pnlMain.add(topo, BorderLayout.NORTH);
+        pnlMain.add(pnlChart, BorderLayout.CENTER);
+        pnlMain.add(pnlTabela, BorderLayout.EAST);
+
+        pnlMain.revalidate();
+        pnlMain.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -194,10 +229,10 @@ public class Dashboard extends javax.swing.JPanel {
         tblChamados = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(15, 23, 42));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setRequestFocusEnabled(false);
+        setLayout(new java.awt.BorderLayout());
 
         pnlMain.setBackground(new java.awt.Color(245, 245, 245));
-        pnlMain.setPreferredSize(new java.awt.Dimension(280, 280));
         pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
@@ -214,12 +249,12 @@ public class Dashboard extends javax.swing.JPanel {
 
         lblTitulo1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         lblTitulo1.setText("Chamados abertos");
-        pnlCardAbertos.add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+        pnlCardAbertos.add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, 140, -1));
 
         lblValor1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 28)); // NOI18N
         lblValor1.setForeground(new java.awt.Color(74, 144, 226));
         lblValor1.setText("12");
-        pnlCardAbertos.add(lblValor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 40, -1, -1));
+        pnlCardAbertos.add(lblValor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
 
         pnlMain.add(pnlCardAbertos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 120));
 
@@ -229,12 +264,12 @@ public class Dashboard extends javax.swing.JPanel {
 
         lblTitulo2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         lblTitulo2.setText("Chamados Fechados");
-        pnlCardFechados.add(lblTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+        pnlCardFechados.add(lblTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, 150, -1));
 
         lblValor2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 28)); // NOI18N
         lblValor2.setForeground(new java.awt.Color(74, 144, 226));
         lblValor2.setText("12");
-        pnlCardFechados.add(lblValor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 40, -1, -1));
+        pnlCardFechados.add(lblValor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
 
         pnlMain.add(pnlCardFechados, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 200, 120));
 
@@ -244,12 +279,12 @@ public class Dashboard extends javax.swing.JPanel {
 
         lblTitulo3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         lblTitulo3.setText("Chamados Pendentes");
-        pnlCardPendentes.add(lblTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+        pnlCardPendentes.add(lblTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, 160, -1));
 
         lblValor3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 28)); // NOI18N
         lblValor3.setForeground(new java.awt.Color(74, 144, 226));
         lblValor3.setText("12");
-        pnlCardPendentes.add(lblValor3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 40, -1, -1));
+        pnlCardPendentes.add(lblValor3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
 
         pnlMain.add(pnlCardPendentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 200, 120));
 
@@ -321,7 +356,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         pnlMain.add(pnlTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 350, 300));
 
-        add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 580));
+        add(pnlMain, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
