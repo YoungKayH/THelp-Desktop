@@ -48,7 +48,7 @@ public class frmCartaoChamado extends JPanel {
         this.onAbrirChamadoListener = r;
     }
     private void abrirChamado() {
-        frmChat chat = new frmChat();
+        frmChat chat = new frmChat(idChamado);
         chat.setVisible(true);
     }
 }

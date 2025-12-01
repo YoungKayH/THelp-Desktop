@@ -27,20 +27,20 @@ public class Registro extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlRegistro = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         pwdSenha = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
+        lblConfirmarSenha = new javax.swing.JLabel();
         pwdConfirmarSenha = new javax.swing.JPasswordField();
 
-        jLabel1.setText("Nome");
+        lblNome.setText("Nome");
 
-        jLabel2.setText("Email");
+        lblEmail.setText("Email");
 
-        jLabel3.setText("Senha");
+        lblSenha.setText("Senha");
 
         txtNome.setText("jTextField1");
 
@@ -48,7 +48,7 @@ public class Registro extends javax.swing.JPanel {
 
         pwdSenha.setText("jPasswordField1");
 
-        jLabel4.setText("Confirmar a senha");
+        lblConfirmarSenha.setText("Confirmar a senha");
 
         pwdConfirmarSenha.setText("jPasswordField1");
 
@@ -57,37 +57,41 @@ public class Registro extends javax.swing.JPanel {
         pnlRegistroLayout.setHorizontalGroup(
             pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRegistroLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(pwdConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pwdSenha, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(298, Short.MAX_VALUE))
+                    .addGroup(pnlRegistroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNome)
+                            .addComponent(lblEmail)
+                            .addComponent(lblSenha)
+                            .addComponent(pwdConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(pwdSenha, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(pnlRegistroLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(lblConfirmarSenha)))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         pnlRegistroLayout.setVerticalGroup(
             pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRegistroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblNome)
                 .addGap(5, 5, 5)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(lblSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pwdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
+                .addComponent(lblConfirmarSenha)
+                .addGap(5, 5, 5)
                 .addComponent(pwdConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(101, Short.MAX_VALUE))
         );
@@ -106,10 +110,10 @@ public class Registro extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblConfirmarSenha;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblSenha;
     private javax.swing.JPanel pnlRegistro;
     private javax.swing.JPasswordField pwdConfirmarSenha;
     private javax.swing.JPasswordField pwdSenha;

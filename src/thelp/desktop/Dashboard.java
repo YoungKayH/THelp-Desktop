@@ -29,17 +29,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Dashboard extends javax.swing.JPanel {
 
-    // Cores do tema
-  //  private final Color PRIMARY_COLOR = new Color(41, 128, 185);
-    //private final Color SUCCESS_COLOR = new Color(39, 174, 96);
-    //private final Color WARNING_COLOR = new Color(243, 156, 18);
-    //private final Color DANGER_COLOR = new Color(231, 76, 60);
-    //private final Color CARD_BG = new Color(255, 255, 255);
-    //private final Color PANEL_BG = new Color(245, 245, 245);
-    
-    /**
-     * Creates new form Dashboard
-     */
    public Dashboard() {
         //createDashboard();
         initComponents();
@@ -94,13 +83,10 @@ public class Dashboard extends javax.swing.JPanel {
     }
    private void carregarDadosDashboard() 
    {
-
-        // Atualiza Cards
         lblValor1.setText(String.valueOf(contarChamados("aberto")));
         lblValor2.setText(String.valueOf(contarChamados("fechado")));
-            lblValor3.setText(String.valueOf(contarChamados("em_andamento")));
+        lblValor3.setText(String.valueOf(contarChamados("em_andamento")));
 
-        // Atualiza tabela
         carregarChamadosRecentes();
     }
    private void carregarGrafico() 
@@ -129,32 +115,26 @@ public class Dashboard extends javax.swing.JPanel {
                 false
         );
 
-        // Plot
         CategoryPlot plot = lineChart.getCategoryPlot();
         plot.setBackgroundPaint(Color.WHITE);
         plot.setRangeGridlinePaint(Color.LIGHT_GRAY);
 
-        // Renderer (3 linhas diferentes)
         LineAndShapeRenderer renderer = new LineAndShapeRenderer();
 
-        // Cores das séries
         renderer.setSeriesPaint(0, new Color(231, 76, 60));   // Vermelho - Abertos
         renderer.setSeriesPaint(1, new Color(41, 128, 185));  // Azul - Fechados
         renderer.setSeriesPaint(2, new Color(243, 156, 18));  // Amarelo - Pendentes
 
-        // Marcadores visíveis
         renderer.setSeriesShapesVisible(0, true);
         renderer.setSeriesShapesVisible(1, true);
         renderer.setSeriesShapesVisible(2, true);
 
-        // Espessura das linhas
         renderer.setSeriesStroke(0, new BasicStroke(2.5f));
         renderer.setSeriesStroke(1, new BasicStroke(2.5f));
         renderer.setSeriesStroke(2, new BasicStroke(2.5f));
 
         plot.setRenderer(renderer);
 
-        // Adicionar gráfico ao painel
         ChartPanel chartPanel = new ChartPanel(lineChart);
         chartPanel.setPreferredSize(pnlChart.getSize());
 
@@ -174,7 +154,6 @@ public class Dashboard extends javax.swing.JPanel {
         pnlMain.removeAll();
         pnlMain.setLayout(new BorderLayout());
 
-        // Painel do topo (título + linha + cards)
         JPanel topo = new JPanel(new BorderLayout());
 
         JPanel header = new JPanel();
@@ -191,7 +170,6 @@ public class Dashboard extends javax.swing.JPanel {
         topo.add(header, BorderLayout.NORTH);
         topo.add(cards, BorderLayout.CENTER);
 
-        // Adiciona ao pnlMain
         pnlMain.add(topo, BorderLayout.NORTH);
         pnlMain.add(pnlChart, BorderLayout.CENTER);
         pnlMain.add(pnlTabela, BorderLayout.EAST);

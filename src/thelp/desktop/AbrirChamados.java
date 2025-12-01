@@ -88,6 +88,29 @@ public class AbrirChamados extends javax.swing.JPanel {
             .addComponent(pnlMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    public void recarregarListaChamados() 
+    {
+    carregarChamados();
+    }
+    public void voltarParaLista() 
+    {
+        // Remove tudo do pnlList
+        pnlList.removeAll();
+    
+        // Restaura o layout original
+        pnlList.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 15));
+    
+        // Recarrega os chamados
+        carregarChamados();
+    
+        // Atualiza a interface
+        pnlList.revalidate();
+        pnlList.repaint();
+    
+        // Também atualiza o header
+        pnlMain.revalidate();
+        pnlMain.repaint();
+    }
     private void carregarChamados() 
     {
         pnlList.removeAll();
@@ -141,7 +164,7 @@ public class AbrirChamados extends javax.swing.JPanel {
         pnlList.removeAll();
         pnlList.setLayout(new java.awt.BorderLayout());
 
-        frmChat chat = new frmChat();
+        frmChat chat = new frmChat(idChamado);
         pnlList.add(chat, BorderLayout.CENTER);
 
         pnlList.revalidate();
