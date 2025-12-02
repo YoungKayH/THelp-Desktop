@@ -9,22 +9,34 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import thelp.desktop.controller.ChamadoController;
 
-public class CriarChamado extends javax.swing.JPanel {
-
+public class CriarChamado extends javax.swing.JPanel 
+{
+    private ChamadoController chamadoController;
+    private File arquivoSelecionado;
+    
     public CriarChamado() {
         initComponents();
         this.removeAll();
-        
+        this.arquivoSelecionado = null;
+        this.chamadoController = new ChamadoController();
         setLayout(new BorderLayout());
         configurarPainel();
+        configurarEventos();
         
     }
     @SuppressWarnings("unchecked")
@@ -134,7 +146,55 @@ public class CriarChamado extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    private void criarChamado() 
+    {
+        try 
+        {
+            String titulo = txtTituloChamado.getText().trim();
+            String descricao = txtDescricao.getText().trim();
+            String categoria = (String) cmbCategoria.getSelectedItem();
+            String prioridade = (String) cmbPrioridade.getSelectedItem();
+        
+            // Validação básica
+            if (titulo.isEmpty() || descricao.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Preencha todos os campos obrigatórios!",
+                    "Validação",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        
+            boolean sucesso = chamadoController.criarChamado(
+                titulo, descricao, categoria, prioridade, arquivoSelecionado
+            );
+        
+            if (sucesso) {
+                limparFormulario();
+            }
+        
+            } catch (Exception e) {
+                e.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Erro ao criar chamado: " + e.getMessage(),
+                    "Erro",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+    }
+    private void limparFormulario() 
+    {
+        txtTituloChamado.setText("");
+        txtDescricao.setText("");
+    
+        cmbCategoria.setSelectedIndex(0);
+        cmbPrioridade.setSelectedIndex(0);
+    
+        lblArquivoSelecionado.setText("Nenhum arquivo selecionado");
+        lblArquivoSelecionado.setForeground(new java.awt.Color(119, 119, 119));
+    
+        arquivoSelecionado = null;
+    
+        txtTituloChamado.requestFocus();
+    }
     private void configurarPainel() 
     {
         this.removeAll();
@@ -212,6 +272,73 @@ public class CriarChamado extends javax.swing.JPanel {
         pnlFooter.add(btnCriarchamado);
 
         add(pnlFooter, BorderLayout.SOUTH);
+    }
+    private void configurarEventos() 
+    {
+        btnCriarchamado.addActionListener(new java.awt.event.ActionListener() 
+        {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criarChamado();
+            }
+        });
+        // Botão Selecionar Arquivo
+        btnSelectArquivo.addActionListener(new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    selecionarArquivo();
+            }
+        });
+    }
+     private void selecionarArquivo() 
+     {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecionar Arquivo para Anexar");
+        
+        // Filtro para tipos de arquivo comuns
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "Documentos e Imagens", "pdf", "doc", "docx", "txt", "jpg", "jpeg", "png", "gif"
+        );
+        fileChooser.setFileFilter(filter);
+        
+        // Limite de tamanho (opcional)
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        
+        int result = fileChooser.showOpenDialog(this);
+        
+        if (result == JFileChooser.APPROVE_OPTION) {
+            arquivoSelecionado = fileChooser.getSelectedFile();
+            String nomeArquivo = arquivoSelecionado.getName();
+            
+            // Formata o tamanho do arquivo
+            long tamanhoBytes = arquivoSelecionado.length();
+            String tamanhoFormatado;
+            if (tamanhoBytes < 1024) {
+                tamanhoFormatado = tamanhoBytes + " B";
+            } else if (tamanhoBytes < 1024 * 1024) {
+                tamanhoFormatado = String.format("%.1f KB", tamanhoBytes / 1024.0);
+            } else {
+                tamanhoFormatado = String.format("%.1f MB", tamanhoBytes / (1024.0 * 1024.0));
+            }
+            
+            lblArquivoSelecionado.setText(nomeArquivo + " (" + tamanhoFormatado + ")");
+            lblArquivoSelecionado.setForeground(new Color(0, 100, 0));
+            
+            // Verifica se o arquivo é muito grande (opcional)
+            if (tamanhoBytes > 10 * 1024 * 1024) { // 10MB
+                JOptionPane.showMessageDialog(this,
+                    "Arquivo muito grande! Tamanho máximo: 10MB",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }
+    private void removerAnexo() 
+    {
+        arquivoSelecionado = null;
+        lblArquivoSelecionado.setText("Nenhum arquivo selecionado");
+        lblArquivoSelecionado.setForeground(new Color(119, 119, 119));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarchamado;

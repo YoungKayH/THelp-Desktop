@@ -8,6 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import thelp.desktop.session.SessaoUsuario;
 import java.util.prefs.Preferences;
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import thelp.desktop.controller.LoginController;
 
 public class frmLogin extends javax.swing.JFrame 
 {
@@ -19,12 +24,14 @@ public class frmLogin extends javax.swing.JFrame
     private static final String PREF_EMAIL = "email_salvo";
     private static final String PREF_SENHA = "senha_salva";
     private static final String PREF_LEMBRAR = "lembrar_senha";
+    private LoginController controller;
     
     public frmLogin() {
         initComponents();
         setAutoRequestFocus(true);
         setTitle("THelp - Desktop");
         setLocationRelativeTo(null);
+        controller = new LoginController(this);
         
         prefs = Preferences.userRoot().node(PREF_NODE);
         
@@ -39,6 +46,7 @@ public class frmLogin extends javax.swing.JFrame
         });
         
         carregarCredenciaisSalvas();
+        SwingUtilities.invokeLater(() -> txtEmail.requestFocusInWindow());
     }
     private void carregarCredenciaisSalvas() 
     {
@@ -293,7 +301,21 @@ public class frmLogin extends javax.swing.JFrame
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new frmLogin().setVisible(true));
     }
+     public JButton getBtnEntrar() {
+        return btnEntrar;
+    }
 
+    public JButton getBtnVoltar() {
+        return btnVoltar;
+    }
+
+    public JTextField getTxtEmail() {
+        return txtEmail;
+    }
+
+    public JPasswordField getPwdSenha() {
+        return pwdSenha;
+    }
     private void voltarUltForm() 
     {
         this.dispose();

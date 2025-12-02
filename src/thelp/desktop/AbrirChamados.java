@@ -10,20 +10,26 @@ import thelp.desktop.Database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import thelp.desktop.controller.AbrirChamadoController;
+import thelp.desktop.model.ChamadoModel;
 
-public class AbrirChamados extends javax.swing.JPanel {
-
+public class AbrirChamados extends javax.swing.JPanel 
+{    
+  private AbrirChamadoController controller;
+  
     public AbrirChamados() {
         initComponents();
+        controller = new AbrirChamadoController();
        // carregarChamadosTest();
-        carregarChamados();
-        
         pnlMain.remove(lblTitulochamados);
         pnlMain.remove(cbFiltro);
         pnlMain.remove(jSeparator1);
+        cbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Aberto", "Fechado", "Em_andamento" }));
         cbFiltro.addActionListener(e -> carregarChamados());
+        carregarChamados();
         
         // Um header para me auxiliar na montagem
         JPanel header = new JPanel();
@@ -39,7 +45,6 @@ public class AbrirChamados extends javax.swing.JPanel {
         
         header.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 10, 10, 10));
         pnlMain.add(header, BorderLayout.NORTH);
-
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -111,53 +116,52 @@ public class AbrirChamados extends javax.swing.JPanel {
         pnlMain.revalidate();
         pnlMain.repaint();
     }
-    private void carregarChamados() 
-    {
+    private void carregarChamados() {
         pnlList.removeAll();
-        int y = 10;
         
-       String filtro = cbFiltro.getSelectedItem().toString();
-       String sql = "SELECT id_chamado, cha_titulo, cha_prioridade, cha_status FROM chamado";
-        
-        if (!filtro.equals("Todos")) {
-            sql += " WHERE cha_status = ?";
+        // Define o filtro correto
+        String filtroSelecionado = (cbFiltro.getSelectedItem() != null) ? cbFiltro.getSelectedItem().toString() : "Todos";
+        String filtro = null;
+        switch (filtroSelecionado.toLowerCase()) {
+            case "aberto": filtro = "aberto"; break;
+            case "fechado": filtro = "fechado"; break;
+            case "em_andamento": filtro = "em_andamento"; break;
+            default: filtro = null; break;
         }
 
-        sql += " ORDER BY id_chamado DESC";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        // Lista de chamados
+        List<ChamadoModel> chamados = controller.listarChamados(filtro);
 
-            if (!filtro.equals("Todos")) {
-                ps.setString(1, filtro.toLowerCase()); 
-            }
+        int y = 10;
+        if (chamados != null && !chamados.isEmpty()) {
+            for (ChamadoModel c : chamados) {
+                frmCartaoChamado cartao = new frmCartaoChamado(
+                        c.getIdChamado(),
+                        c.getTitulo(),
+                        c.getPrioridade(),
+                        c.getStatus()
+                );
 
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) 
-            {
-                int id = rs.getInt("id_chamado");
-                String titulo = rs.getString("cha_titulo");
-                String prioridade = rs.getString("cha_prioridade");
-                String status = rs.getString("cha_status");
-
-                frmCartaoChamado cartao = new frmCartaoChamado(id, titulo, prioridade, status);
-
-                cartao.setOnAbrirChamadoListener(() -> abrirChat(id));
+                // Ao clicar, abre chat
+                cartao.setOnAbrirChamadoListener(() -> abrirChat(c.getIdChamado()));
 
                 cartao.setBounds(10, y, 850, 90);
                 y += 100;
-
                 pnlList.add(cartao);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            JLabel lblVazio = new JLabel("Nenhum chamado encontrado.");
+            lblVazio.setPreferredSize(new Dimension(850, 50));
+            pnlList.add(lblVazio);
         }
 
         pnlList.setPreferredSize(new Dimension(880, y + 20));
-        pnlList.repaint();
         pnlList.revalidate();
+        pnlList.repaint();
+        System.out.println("Filtro selecionado: " + filtro);
+        System.out.println("Chamados encontrados: " + (chamados != null ? chamados.size() : "null"));
+
     }
     private void abrirChat(int idChamado) 
     {

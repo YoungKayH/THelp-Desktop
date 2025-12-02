@@ -26,7 +26,6 @@ public class AuthService {
         if (usuario != null) {
             this.usuarioLogado = usuario;
             
-            // Salvar em preferências se necessário
             salvarPreferenciasLogin(email, senha);
             
             return true;
@@ -88,22 +87,18 @@ public class AuthService {
     
     // Métodos para gerenciar preferências de login
     private void salvarPreferenciasLogin(String email, String senha) {
-        // Implementar se quiser salvar no registro ou arquivo
         // java.util.prefs.Preferences prefs = java.util.prefs.Preferences.userRoot().node(this.getClass().getName());
         // prefs.put("email", email);
         // prefs.putBoolean("lembrar", true);
     }
     
     private void limparPreferenciasLogin() {
-        // Implementar se quiser limpar preferências
         // java.util.prefs.Preferences prefs = java.util.prefs.Preferences.userRoot().node(this.getClass().getName());
         // prefs.remove("email");
         // prefs.remove("lembrar");
     }
     
-    // Carregar login salvo
     public boolean carregarLoginSalvo() {
-        // Implementar se quiser carregar login automaticamente
         return false;
     }
 }

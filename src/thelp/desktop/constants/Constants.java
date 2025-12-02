@@ -12,7 +12,7 @@ public class Constants {
 
     public static class Database {
 
-        public static final String DATABASE_NAME = "chamados";
+        public static final String DATABASE_NAME = "thelp";
         public static final String HOST          = "localhost";
         public static final String PORT          = "5432";
         public static final String USERNAME      = "admin_thelp";

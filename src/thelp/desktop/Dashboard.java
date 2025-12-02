@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package thelp.desktop;
 
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import thelp.desktop.Database.DatabaseConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
@@ -21,17 +13,17 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import thelp.desktop.controller.DashboardController;
+import thelp.desktop.model.ChamadoModel;
 
-
-/**
- *
- * @author kaka2
- */
-public class Dashboard extends javax.swing.JPanel {
-
+public class Dashboard extends javax.swing.JPanel 
+{
+   private DashboardController controller;
+   
    public Dashboard() {
         //createDashboard();
         initComponents();
+        controller = new DashboardController();
         
         LayoutOrg();
         
@@ -39,115 +31,69 @@ public class Dashboard extends javax.swing.JPanel {
         carregarDadosDashboard();
         
     }
-   private int contarChamados(String status) 
-   {
-    String sql = "SELECT COUNT(*) FROM chamado WHERE cha_status = ?";
+   private void carregarDadosDashboard() {
+        lblValor1.setText(String.valueOf(controller.getAbertos()));
+        lblValor2.setText(String.valueOf(controller.getFechados()));
+        lblValor3.setText(String.valueOf(controller.getPendentes()));
 
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-        stmt.setString(1, status);
-        ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()) {
-            return rs.getInt(1);
-        }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+        carregarTabelaChamados();
     }
-   private void carregarChamadosRecentes() 
+   private void carregarTabelaChamados() 
    {
-       String sql = "SELECT id_chamado, cha_titulo, cha_status FROM chamado ORDER BY id_chamado DESC LIMIT 20";
+        List<ChamadoModel> lista = controller.getChamadosRecentes();
 
         DefaultTableModel model = (DefaultTableModel) tblChamados.getModel();
-        model.setRowCount(0); // limpa tabela
+        model.setRowCount(0);
 
-        try (Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()) {
-
-        while (rs.next()) {
-            model.addRow(new Object[]{
-                rs.getInt("id_chamado"),
-                rs.getString("cha_titulo"),
-                rs.getString("cha_status")
-            });
+        for (ChamadoModel c : lista) {
+            model.addRow(new Object[]{ c.getId(), c.getTitulo(), c.getStatus() });
         }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-   private void carregarDadosDashboard() 
-   {
-        lblValor1.setText(String.valueOf(contarChamados("aberto")));
-        lblValor2.setText(String.valueOf(contarChamados("fechado")));
-        lblValor3.setText(String.valueOf(contarChamados("em_andamento")));
-
-        carregarChamadosRecentes();
     }
    private void carregarGrafico() 
-{
-    try {
-        int abertos = contarChamados("aberto");
-        int fechados = contarChamados("fechado");
-        int pendentes = contarChamados("em_andamento");
+   {
+        int abertos = controller.getAbertos();
+        int fechados = controller.getFechados();
+        int pendentes = controller.getPendentes();
 
-        // Criar dataset com 3 séries separadas
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        dataset.addValue(abertos, "Abertos", "Abertos");
-        dataset.addValue(fechados, "Fechados", "Fechados");
-        dataset.addValue(pendentes, "Pendentes", "Pendentes");
+        dataset.addValue(abertos, "Abertos", "Ponto 1");
+        dataset.addValue(abertos, "Abertos", "Ponto 2");
 
-        // Criar o gráfico
-        JFreeChart lineChart = ChartFactory.createLineChart(
+        dataset.addValue(fechados, "Fechados", "Ponto 1");
+        dataset.addValue(fechados, "Fechados", "Ponto 2");
+
+        dataset.addValue(pendentes, "Pendentes", "Ponto 1");
+        dataset.addValue(pendentes, "Pendentes", "Ponto 2");
+
+        JFreeChart chart = ChartFactory.createLineChart(
                 "Status dos Chamados",
                 "Categoria",
                 "Quantidade",
                 dataset,
                 PlotOrientation.VERTICAL,
-                true,   // legenda ativada
                 true,
-                false
+                true,
+             false
         );
 
-        CategoryPlot plot = lineChart.getCategoryPlot();
+        CategoryPlot plot = chart.getCategoryPlot();
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+
+        renderer.setDefaultShapesVisible(true);
+        renderer.setDefaultLinesVisible(true);
+
         plot.setBackgroundPaint(Color.WHITE);
-        plot.setRangeGridlinePaint(Color.LIGHT_GRAY);
 
-        LineAndShapeRenderer renderer = new LineAndShapeRenderer();
-
-        renderer.setSeriesPaint(0, new Color(231, 76, 60));   // Vermelho - Abertos
-        renderer.setSeriesPaint(1, new Color(41, 128, 185));  // Azul - Fechados
-        renderer.setSeriesPaint(2, new Color(243, 156, 18));  // Amarelo - Pendentes
-
-        renderer.setSeriesShapesVisible(0, true);
-        renderer.setSeriesShapesVisible(1, true);
-        renderer.setSeriesShapesVisible(2, true);
-
-        renderer.setSeriesStroke(0, new BasicStroke(2.5f));
-        renderer.setSeriesStroke(1, new BasicStroke(2.5f));
-        renderer.setSeriesStroke(2, new BasicStroke(2.5f));
-
-        plot.setRenderer(renderer);
-
-        ChartPanel chartPanel = new ChartPanel(lineChart);
-        chartPanel.setPreferredSize(pnlChart.getSize());
+        ChartPanel chartPanel = new ChartPanel(chart);
 
         pnlChart.removeAll();
         pnlChart.setLayout(new BorderLayout());
         pnlChart.add(chartPanel, BorderLayout.CENTER);
         pnlChart.revalidate();
         pnlChart.repaint();
-
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
+
    private void LayoutOrg() 
    {
 
@@ -177,12 +123,6 @@ public class Dashboard extends javax.swing.JPanel {
         pnlMain.revalidate();
         pnlMain.repaint();
     }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

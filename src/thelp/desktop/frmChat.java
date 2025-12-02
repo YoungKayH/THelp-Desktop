@@ -274,7 +274,6 @@ public class frmChat extends javax.swing.JPanel
             }
         });
         
-        // Permitir envio com Ctrl+Enter
         txtMensagem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 if (evt.isControlDown() && evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
@@ -285,7 +284,6 @@ public class frmChat extends javax.swing.JPanel
     }
     private void voltarParaChamados() 
     {
-        // Busca o AbrirChamados
         java.awt.Container parent = this.getParent();
         AbrirChamados abrirPanel = null;
     
@@ -299,7 +297,6 @@ public class frmChat extends javax.swing.JPanel
         }
     
         if (abrirPanel != null) {
-            // Remove este painel primeiro
             java.awt.Container Pai = this.getParent();
             if (Pai != null) {
                 Pai.removeAll();
