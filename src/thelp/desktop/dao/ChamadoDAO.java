@@ -18,38 +18,35 @@ public class ChamadoDAO {
     // CRUD Básico
     public boolean criarChamado(ChamadoModel chamado, File arquivo, int idOrganizacao) 
 {
-    System.out.println("=== DEBUG DAO: Iniciando criação de chamado ===");
-    System.out.println("Título: " + chamado.getTitulo());
-    System.out.println("Organização ID: " + idOrganizacao);
+    System.out.println("=== DAO - INSERT SEM id_usuario_abertura ===");
     
-    // SQL CORRIGIDA - incluindo id_organizacao
+    // SQL SEM a coluna id_usuario_abertura
     String sql = "INSERT INTO chamado (cha_titulo, cha_descricao, cha_categoria, " +
-                "cha_prioridade, cha_status, id_organizacao, id_usuario_abertura, " +
-                "id_usuario_atribuido, cha_anexo, cha_criado_em) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, NULL, ?, CURRENT_TIMESTAMP)";
+                "cha_prioridade, cha_status, id_organizacao, cha_anexo, cha_criado_em) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+    
+    System.out.println("SQL executada: " + sql);
     
     try (Connection conn = DatabaseConnection.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
         
-        System.out.println("SQL: " + sql);
-        
+        // 7 parâmetros (não 8)
         ps.setString(1, chamado.getTitulo());
         ps.setString(2, chamado.getDescricao());
         ps.setString(3, chamado.getCategoria());
         ps.setString(4, chamado.getPrioridade());
         ps.setString(5, chamado.getStatus());
-        ps.setInt(6, idOrganizacao);
+        ps.setInt(6, idOrganizacao); // id_organizacao
         
-        // Se tiver anexo, salva o caminho
         if (arquivo != null && arquivo.exists()) {
-            String caminhoAnexo = salvarArquivoNoServidor(arquivo);
-            ps.setString(8, caminhoAnexo);
+            String caminhoAnexo = salvarArquivoNoServidor(arquivo); // 0 pois não temos usuário
+            ps.setString(7, caminhoAnexo);
         } else {
-            ps.setNull(8, Types.VARCHAR);
+            ps.setNull(7, Types.VARCHAR);
         }
         
         int rows = ps.executeUpdate();
-        System.out.println("Linhas afetadas: " + rows);
+        System.out.println("Linhas inseridas: " + rows);
         
         if (rows > 0) {
             ResultSet rs = ps.getGeneratedKeys();
@@ -65,6 +62,7 @@ public class ChamadoDAO {
     }
     return false;
 }
+
     public int buscarOrganizacaoUsuario(int idUsuario) 
     {
     String sql = "SELECT id_organizacao FROM usuario WHERE id_usuario = ?";
@@ -343,7 +341,7 @@ public class ChamadoDAO {
         rs.getString("cha_descricao"),
         rs.getString("cha_categoria"),
         rs.getString("cha_prioridade"),
-        rs.getString("cha_status"), // <- importante
+        rs.getString("cha_status"),
         rs.getTimestamp("cha_criado_em") != null ? rs.getTimestamp("cha_criado_em").toLocalDateTime() : null,
         rs.getTimestamp("cha_atualizado_em") != null ? rs.getTimestamp("cha_atualizado_em").toLocalDateTime() : null,
         rs.getTimestamp("cha_finalizado_em") != null ? rs.getTimestamp("cha_finalizado_em").toLocalDateTime() : null,

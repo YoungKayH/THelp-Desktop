@@ -51,7 +51,7 @@
     <Container class="javax.swing.JDesktopPane" name="jDesktopPane1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="2a" green="17" red="f" type="rgb"/>
+          <Color blue="59" green="21" red="36" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
@@ -131,6 +131,9 @@
             <Property name="text" type="java.lang.String" value="Registrar"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblThelp">
           <Properties>

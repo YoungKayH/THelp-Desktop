@@ -6,17 +6,20 @@ import thelp.desktop.model.ChamadoModel;
 import thelp.desktop.session.SessaoUsuario;
 import javax.swing.JOptionPane;
 import java.util.List;
+import thelp.desktop.service.AuthService;
 
 public class ChamadoController {
     
+    private AuthService authService;
     private final ChamadoDAO chamadoDAO;
     
     public ChamadoController() 
     { 
         this.chamadoDAO = new ChamadoDAO();
         this.chamadoDAO.testarConexaoETabela();
+        this.authService = AuthService.getInstance();
     }
-    
+    //File arquivoAnexo
     // Métodos de criação
     public boolean criarChamado(String titulo, String descricao, String categoria, 
                            String prioridade, File arquivoAnexo) {
@@ -25,10 +28,18 @@ public class ChamadoController {
         return false;
     }
     
-    if (!SessaoUsuario.isLogado()) {
-        mostrarErro("Você precisa estar logado para criar um chamado!");
-        return false;
-    }
+   if (!authService.isLogado()) {
+            mostrarErro("Você precisa estar logado para criar um chamado!");
+            return false;
+        }
+        
+        int usuarioId = authService.getUsuarioLogadoId();
+        System.out.println("ID do usuário: " + usuarioId);
+        
+        if (usuarioId <= 0) {
+            mostrarErro("ID de usuário inválido!");
+            return false;
+        }
     
     // Valida tamanho do arquivo
     if (arquivoAnexo != null && arquivoAnexo.exists()) {
@@ -43,13 +54,12 @@ public class ChamadoController {
         titulo.trim(),
         descricao.trim(),
         categoria,
-        prioridade,
-        SessaoUsuario.getId()
+        prioridade
     );
+
     
     // Busca a organização do usuário
     int idOrganizacao = chamadoDAO.buscarOrganizacaoUsuario(SessaoUsuario.getId());
-    
     if (idOrganizacao <= 0) {
         mostrarErro("Usuário não tem organização vinculada!");
         return false;

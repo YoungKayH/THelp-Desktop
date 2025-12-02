@@ -20,6 +20,7 @@ public class UsuarioDAO {
             if (conn == null) return null;
             
             ps.setString(1, email);
+            System.out.println("HASH recebido no DAO: " + senha);
             ps.setString(2, senha); // Em produção, use hash da senha
             
             ResultSet rs = ps.executeQuery();

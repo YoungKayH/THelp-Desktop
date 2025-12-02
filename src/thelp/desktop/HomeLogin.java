@@ -9,7 +9,7 @@ import java.awt.Toolkit;
 
 public class HomeLogin extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Home.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeLogin.class.getName());
 
     public HomeLogin() {
         setTitle("THelp - Desktop");
@@ -41,7 +41,7 @@ public class HomeLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 400));
 
-        jDesktopPane1.setBackground(new java.awt.Color(15, 23, 42));
+        jDesktopPane1.setBackground(new java.awt.Color(54, 33, 89));
 
         btnEntrar.setBackground(new java.awt.Color(74, 144, 226));
         btnEntrar.setText("Entrar");
@@ -60,6 +60,11 @@ public class HomeLogin extends javax.swing.JFrame {
         btnRegistrar.setBackground(new java.awt.Color(153, 153, 153));
         btnRegistrar.setText("Registrar");
         btnRegistrar.setFocusPainted(false);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         lblThelp.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         lblThelp.setForeground(new java.awt.Color(74, 144, 226));
@@ -132,6 +137,36 @@ public class HomeLogin extends javax.swing.JFrame {
         
         this.dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        javax.swing.JDialog dialog = new javax.swing.JDialog(this, "THelp - Registro", true);
+    
+        Registro reg = new Registro();
+        dialog.setContentPane(reg);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+    
+        // Configurar operação de fechamento
+        dialog.setDefaultCloseOperation(javax.swing.JDialog.DISPOSE_ON_CLOSE);
+    
+        // Adicionar listener para quando o diálogo for fechado
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            setVisible(true); // Mostra a janela principal novamente
+        }
+        
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent e) {
+            setVisible(true); // Mostra a janela principal novamente
+        }
+        });
+    
+        // Esconde a janela principal e mostra o diálogo
+        this.setVisible(false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarActionPerformed
     private void pegarResolucao(double percentual) 
     {
         Toolkit t = Toolkit.getDefaultToolkit();
@@ -164,7 +199,7 @@ public class HomeLogin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Home().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new HomeLogin().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

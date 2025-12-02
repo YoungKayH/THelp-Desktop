@@ -13,6 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import thelp.desktop.controller.LoginController;
+import thelp.desktop.service.AuthService;
 
 public class frmLogin extends javax.swing.JFrame 
 {
@@ -108,22 +109,6 @@ public class frmLogin extends javax.swing.JFrame
             logger.warning("Erro ao remover credenciais: " + e.getMessage());
         }
     }
-    private String criptografarSenha(String senha) {
-        try {
-            byte[] bytes = senha.getBytes("UTF-8");
-            return java.util.Base64.getEncoder().encodeToString(bytes);
-        } catch (Exception e) {
-            return senha;
-        }
-    }
-    private String descriptografarSenha(String senhaCriptografada) {
-        try {
-            byte[] bytes = java.util.Base64.getDecoder().decode(senhaCriptografada);
-            return new String(bytes, "UTF-8");
-        } catch (Exception e) {
-            return senhaCriptografada;
-        }
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -212,45 +197,56 @@ public class frmLogin extends javax.swing.JFrame
 
     
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        String email = txtEmail.getText().trim();
-        String senha = new String(pwdSenha.getPassword());
+    String email = txtEmail.getText().trim();
+    String senha = new String(pwdSenha.getPassword());
+    
+    if (email.isEmpty() || senha.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+            "Por favor, preencha todos os campos.",
+            "Campos obrigatórios",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    AuthService authService = AuthService.getInstance();
+    boolean autenticado = authService.login(email, senha);
+    
+    if (autenticado) 
+    {
+            SessaoUsuario.setUsuario(
+                authService.getUsuarioLogadoId(),
+                authService.getNomeUsuarioLogado()
+            );
         
-        if (email.isEmpty() || senha.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Por favor, preencha todos os campos.",
-                "Campos obrigatórios",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        boolean autenticado = SessaoUsuario.login(email, senha);
-        
-        if (autenticado) 
-        {
             salvarCredenciais(email, senha, cbLembrarSenha.isSelected());
-            
+        
             JOptionPane.showMessageDialog(this,
-                "Login realizado com sucesso!\nBem-vindo, " + SessaoUsuario.getNome() + "!",
+                "Login realizado com sucesso!\nBem-vindo, " + authService.getNomeUsuarioLogado() + "!",
                 "Sucesso",
                 JOptionPane.INFORMATION_MESSAGE);
-            
+        
             Home home = new Home();
             home.setVisible(true);
             this.dispose();
-        } 
-        else 
-        {
-            
-            JOptionPane.showMessageDialog(this,
-                "Email ou senha incorretos.\nVerifique suas credenciais.",
-                "Falha no login",
-                JOptionPane.ERROR_MESSAGE);
-
-            pwdSenha.setText("");
-            txtEmail.requestFocus();
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
-
+    private String hashSHA256(String senha) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(senha.getBytes("UTF-8"));
+        
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+        
+            return hexString.toString();
+        } catch (Exception e) {
+            return senha; // Fallback
+        }
+    }
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         HomeLogin log = new HomeLogin();
         log.setVisible(true);

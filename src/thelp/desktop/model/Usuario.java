@@ -14,6 +14,7 @@ public class Usuario
     private Timestamp criadoEm;
     private Timestamp atualizadoEm;
     
+    
     public Usuario() 
     {
         

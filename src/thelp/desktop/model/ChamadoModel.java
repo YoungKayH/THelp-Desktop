@@ -14,6 +14,8 @@ public class ChamadoModel
     private LocalDateTime atualizadoEm;
     private LocalDateTime finalizadoEm;
     private String anexo;
+    private int idUsuarioAbertura;
+
 
     // Construtor completo
     public ChamadoModel(int idChamado, String titulo, String descricao, String categoria,
